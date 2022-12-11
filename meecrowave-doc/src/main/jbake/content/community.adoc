@@ -1,0 +1,53 @@
+= Community
+:jbake-date: 2016-10-27
+:jbake-type: page
+:jbake-status: published
+:jbake-meecrowavepdf:
+:jbake-meecrowavetitleicon: icon icon_puzzle_alt
+:jbake-meecrowavecolor: body-green
+:icons: font
+
+For now please use OpenWebBeans mailing-lists, JIRA and IRC channel.
+
+See https://openwebbeans.apache.org/community.html[OpenWebBeans Community] page for more details.
+
+== Source code
+
+Source code can be found at https://gitbox.apache.org/repos/asf/openwebbeans-meecrowave.git
+
+[source]
+----
+$> git clone https://gitbox.apache.org/repos/asf/openwebbeans-meecrowave.git
+----
+
+A mirror is available on github at https://github.com/apache/openwebbeans-meecrowave.
+
+
+The github mirror is linked in both directions.
+That means it doesn't matter whether you push to GitHub or Apache GitBox.
+
+
+=== Build it
+
+To build the project just run maven:
+
+[source]
+----
+mvn clean install
+----
+
+
+== Example Source Code
+
+The Apache Meecrowave community also hosts some examples which show how Meecrowave is to be used.
+Those examples are hosted in a separate repository and can be found at https://github.com/apache/openwebbeans-meecrowave-examples
+
+The github repo works fine for pull requests.
+Please use our official https://issues.apache.org/jira/projects/MEECROWAVE[Meecrowave Bug Tracker] for reporting bugs or enhancement requests.
+
+The cannonical repository hosted directly at the Apache Software Foundation intended to be used by committers is
+
+[source]
+----
+git clone https://gitbox.apache.org/repos/asf/openwebbeans-meecrowave-examples.git
+----

@@ -1,0 +1,95 @@
+= Apache Meecrowave
+
+image:https://img.shields.io/maven-central/v/org.apache.meecrowave/meecrowave.svg[Version]
+
+Apache Meecrowave is a small Microprofile server (JAX-RS + CDI + JSON) fully based on Apache products.
+
+== How to start
+If you want to start with your first *Hello World* you have to add the following dependencies to your `pom.xml`.
+
+```xml
+ <properties>
+    <meecrowave.version>LATEST</meecrowave.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.meecrowave</groupId>
+      <artifactId>meecrowave-specs-api</artifactId>
+      <version>${meecrowave.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.meecrowave</groupId>
+      <artifactId>meecrowave-core</artifactId>
+      <version>${meecrowave.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.meecrowave</groupId>
+      <artifactId>meecrowave-junit</artifactId>
+      <version>${meecrowave.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+```
+
+The project itself should be used with Java8 as the minimum JDK-version.
+
+To work with the latest SNAPSHOT, you can clone the repo and make a ```mvn clean install```.
+
+== Hello World - REST - trivial
+Let´s start with an minimal REST Endpoint.
+The only result you can get is a *Hello World*.
+Additionally there is a class called ```HelloApplication``` to make sure your path will start with **/api/**
+
+```java
+@Dependent
+@ApplicationPath("api")
+public class HelloApplication extends Application {
+}
+
+@Path("hello")
+@ApplicationScoped
+public class HelloEndpoint {
+
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  public String sayHi() {
+    return "Hello World";
+  }
+}
+```
+
+You can start writing your first test , now.
+Using junit4, the test class should annotated with ```@RunWith(MonoMeecrowave.Runner.class)```
+The Container start and stop will be managed for you.
+To have access to the dynamic data, like the random used port, use the the injected ```Meecrowave.Builder````.
+
+The test-request itself is written like a normal request.
+This example is using the class ```javax.ws.rs.client.ClientBuilder```.
+
+```java
+@RunWith(MonoMeecrowave.Runner.class)
+public class HelloEndpointTest {
+  @ConfigurationInject
+  private Meecrowave.Builder configuration;
+
+  @Test
+  public void hello() {
+    final Client client = ClientBuilder.newClient();
+    try {
+      assertEquals("Hello World", client.target("http://localhost:" + configuration.getHttpPort())
+                                        .path("api/hello")
+                                        .request(APPLICATION_JSON_TYPE)
+                                        .get(String.class));
+    } finally {
+      client.close();
+    }
+  }
+}
+```
+
+
+
+
+

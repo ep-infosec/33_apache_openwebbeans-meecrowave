@@ -1,0 +1,39 @@
+= Meecrowave Gradle
+:jbake-date: 2016-10-24
+:jbake-type: page
+:jbake-status: published
+:jbake-meecrowavepdf:
+:jbake-meecrowavetitleicon: icon icon_puzzle_alt
+:jbake-meecrowavecolor: body-purple
+:icons: font
+
+[source,groovy]
+----
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.apache.meecrowave:meecrowave-gradle-plugin:${meecrowave.version}"
+    }
+}
+
+group 'com.app'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'org.apache.meecrowave'
+
+meecrowave {
+    httpPort = 9090
+    // most of the meecrowave core configuration
+}
+
+----
+
+IMPORTANT: until version `1.2.7` the plugin id was `org.apache.microwave.microwave` so you had to use `apply plugin: 'org.apache.microwave.microwave'`.
+Alternatively you can use plugin class: `apply plugin: org.apache.meecrowave.gradle.MeecrowavePlugin`.
+
+== Configuration
+
+include::../../../../../target/generated-doc/GradleConfiguration.adoc[]
